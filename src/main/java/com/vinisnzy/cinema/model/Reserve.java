@@ -26,7 +26,7 @@ public class Reserve {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "reserve", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reserve")
     private List<Seat> seats;
 
     @ManyToOne

@@ -29,6 +29,6 @@ public class Seat {
     private Session session;
 
     @ManyToOne
-    @JoinColumn(name = "reserve_id", nullable = true)
+    @JoinColumn(name = "reserve_id")
     private Reserve reserve;
 }
