@@ -1,14 +1,15 @@
 package com.vinisnzy.cinema.controllers;
 
-import com.vinisnzy.cinema.models.movie.Movie;
-import com.vinisnzy.cinema.models.movie.MovieRequestDTO;
-import com.vinisnzy.cinema.models.movie.MovieResponseDTO;
+import com.vinisnzy.cinema.dtos.CustomPageDTO;
+import com.vinisnzy.cinema.dtos.movie.MovieRequestDTO;
+import com.vinisnzy.cinema.dtos.movie.MovieResponseDTO;
 import com.vinisnzy.cinema.services.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,8 +20,12 @@ public class MovieController {
     private final MovieService service;
 
     @GetMapping
-    public ResponseEntity<List<MovieResponseDTO>> getAllMovies() {
-        return ResponseEntity.ok(service.getAllMovies());
+    public ResponseEntity<CustomPageDTO<MovieResponseDTO>> getAllMovies(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(service.getAllMovies(pageable));
     }
 
     @GetMapping("/{id}")

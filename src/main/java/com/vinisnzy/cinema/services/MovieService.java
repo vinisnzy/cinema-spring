@@ -1,13 +1,15 @@
 package com.vinisnzy.cinema.services;
 
-import com.vinisnzy.cinema.enums.Classification;
+import com.vinisnzy.cinema.dtos.CustomPageDTO;
 import com.vinisnzy.cinema.mappers.MovieMapper;
-import com.vinisnzy.cinema.models.movie.MovieRequestDTO;
-import com.vinisnzy.cinema.models.movie.Movie;
-import com.vinisnzy.cinema.models.movie.MovieResponseDTO;
+import com.vinisnzy.cinema.dtos.movie.MovieRequestDTO;
+import com.vinisnzy.cinema.models.Movie;
+import com.vinisnzy.cinema.dtos.movie.MovieResponseDTO;
 import com.vinisnzy.cinema.repositories.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +24,11 @@ public class MovieService {
     @Autowired
     private final MovieMapper movieMapper;
 
-    public List<MovieResponseDTO> getAllMovies() {
-        return repository.findAll().stream().map(movieMapper::toResponseDTO).toList();
+    public CustomPageDTO<MovieResponseDTO> getAllMovies(Pageable pageable) {
+        Page<Movie> page = repository.findAll(pageable);
+        List<MovieResponseDTO> dtos = page.getContent().stream()
+                .map(movieMapper::toResponseDTO).toList();
+        return new CustomPageDTO<>(dtos, page.getNumber(), page.getTotalPages(), page.getTotalElements());
     }
 
     public MovieResponseDTO getMovieById(UUID id) {
