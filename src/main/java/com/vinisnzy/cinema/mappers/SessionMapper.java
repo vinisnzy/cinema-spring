@@ -1,10 +1,10 @@
 package com.vinisnzy.cinema.mappers;
 
-import com.vinisnzy.cinema.models.movie.Movie;
-import com.vinisnzy.cinema.models.movie.MovieResponseDTO;
-import com.vinisnzy.cinema.models.session.Session;
-import com.vinisnzy.cinema.models.session.SessionRequestDTO;
-import com.vinisnzy.cinema.models.session.SessionResponseDTO;
+import com.vinisnzy.cinema.models.Movie;
+import com.vinisnzy.cinema.dtos.movie.MovieResponseDTO;
+import com.vinisnzy.cinema.models.Session;
+import com.vinisnzy.cinema.dtos.session.SessionRequestDTO;
+import com.vinisnzy.cinema.dtos.session.SessionResponseDTO;
 import com.vinisnzy.cinema.services.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

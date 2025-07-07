@@ -1,4 +1,4 @@
-package com.vinisnzy.cinema.models.seat;
+package com.vinisnzy.cinema.dtos.seat;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

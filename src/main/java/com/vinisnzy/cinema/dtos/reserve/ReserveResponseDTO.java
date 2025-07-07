@@ -1,13 +1,10 @@
-package com.vinisnzy.cinema.models.reserve;
+package com.vinisnzy.cinema.dtos.reserve;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.vinisnzy.cinema.models.seat.SeatResponseDTO;
-import com.vinisnzy.cinema.models.session.SessionResponseDTO;
+import com.vinisnzy.cinema.dtos.session.SessionResponseDTO;
 
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public record ReserveResponseDTO(

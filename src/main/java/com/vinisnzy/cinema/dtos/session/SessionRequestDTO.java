@@ -1,4 +1,4 @@
-package com.vinisnzy.cinema.models.session;
+package com.vinisnzy.cinema.dtos.session;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Future;

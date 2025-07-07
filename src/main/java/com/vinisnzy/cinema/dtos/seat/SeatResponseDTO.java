@@ -1,6 +1,6 @@
-package com.vinisnzy.cinema.models.seat;
+package com.vinisnzy.cinema.dtos.seat;
 
-import com.vinisnzy.cinema.models.session.SessionResponseDTO;
+import com.vinisnzy.cinema.dtos.session.SessionResponseDTO;
 
 import java.util.UUID;
 

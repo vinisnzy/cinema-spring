@@ -1,7 +1,7 @@
 package com.vinisnzy.cinema.controllers;
 
-import com.vinisnzy.cinema.models.seat.SeatRequestDTO;
-import com.vinisnzy.cinema.models.seat.SeatResponseDTO;
+import com.vinisnzy.cinema.dtos.seat.SeatRequestDTO;
+import com.vinisnzy.cinema.dtos.seat.SeatResponseDTO;
 import com.vinisnzy.cinema.services.SeatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

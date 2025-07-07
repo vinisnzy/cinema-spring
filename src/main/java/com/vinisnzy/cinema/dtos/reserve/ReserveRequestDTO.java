@@ -1,4 +1,4 @@
-package com.vinisnzy.cinema.models.reserve;
+package com.vinisnzy.cinema.dtos.reserve;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

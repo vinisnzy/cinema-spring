@@ -1,9 +1,8 @@
 package com.vinisnzy.cinema.utils;
 
-import com.vinisnzy.cinema.models.seat.Seat;
-import com.vinisnzy.cinema.models.session.Session;
+import com.vinisnzy.cinema.models.Seat;
+import com.vinisnzy.cinema.models.Session;
 import com.vinisnzy.cinema.repositories.SeatRepository;
-import com.vinisnzy.cinema.services.SeatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

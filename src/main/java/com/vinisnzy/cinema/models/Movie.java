@@ -1,7 +1,6 @@
-package com.vinisnzy.cinema.models.movie;
+package com.vinisnzy.cinema.models;
 
 import com.vinisnzy.cinema.enums.Classification;
-import com.vinisnzy.cinema.models.session.Session;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

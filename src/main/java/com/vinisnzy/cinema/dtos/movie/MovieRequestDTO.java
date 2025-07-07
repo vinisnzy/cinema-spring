@@ -1,4 +1,4 @@
-package com.vinisnzy.cinema.models.movie;
+package com.vinisnzy.cinema.dtos.movie;
 
 import com.vinisnzy.cinema.enums.Classification;
 import jakarta.validation.constraints.NotBlank;

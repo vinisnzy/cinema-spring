@@ -1,17 +1,16 @@
 package com.vinisnzy.cinema.services;
 
 import com.vinisnzy.cinema.mappers.SessionMapper;
-import com.vinisnzy.cinema.models.movie.Movie;
-import com.vinisnzy.cinema.models.seat.Seat;
-import com.vinisnzy.cinema.models.session.Session;
-import com.vinisnzy.cinema.models.session.SessionRequestDTO;
-import com.vinisnzy.cinema.models.session.SessionResponseDTO;
+import com.vinisnzy.cinema.models.Movie;
+import com.vinisnzy.cinema.models.Seat;
+import com.vinisnzy.cinema.models.Session;
+import com.vinisnzy.cinema.dtos.session.SessionRequestDTO;
+import com.vinisnzy.cinema.dtos.session.SessionResponseDTO;
 import com.vinisnzy.cinema.repositories.SessionRepository;
 import com.vinisnzy.cinema.utils.GenerateSeats;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

@@ -1,7 +1,5 @@
-package com.vinisnzy.cinema.models.seat;
+package com.vinisnzy.cinema.models;
 
-import com.vinisnzy.cinema.models.session.Session;
-import com.vinisnzy.cinema.models.reserve.Reserve;
 import jakarta.persistence.*;
 import lombok.*;
 

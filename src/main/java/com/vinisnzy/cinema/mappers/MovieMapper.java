@@ -1,9 +1,8 @@
 package com.vinisnzy.cinema.mappers;
 
-import com.vinisnzy.cinema.enums.Classification;
-import com.vinisnzy.cinema.models.movie.Movie;
-import com.vinisnzy.cinema.models.movie.MovieRequestDTO;
-import com.vinisnzy.cinema.models.movie.MovieResponseDTO;
+import com.vinisnzy.cinema.models.Movie;
+import com.vinisnzy.cinema.dtos.movie.MovieRequestDTO;
+import com.vinisnzy.cinema.dtos.movie.MovieResponseDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

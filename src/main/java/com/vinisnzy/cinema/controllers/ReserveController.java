@@ -1,7 +1,7 @@
 package com.vinisnzy.cinema.controllers;
 
-import com.vinisnzy.cinema.models.reserve.ReserveRequestDTO;
-import com.vinisnzy.cinema.models.reserve.ReserveResponseDTO;
+import com.vinisnzy.cinema.dtos.reserve.ReserveRequestDTO;
+import com.vinisnzy.cinema.dtos.reserve.ReserveResponseDTO;
 import com.vinisnzy.cinema.services.ReserveService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

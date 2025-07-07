@@ -1,9 +1,9 @@
 package com.vinisnzy.cinema.services;
 
 import com.vinisnzy.cinema.mappers.ReserveMapper;
-import com.vinisnzy.cinema.models.reserve.Reserve;
-import com.vinisnzy.cinema.models.reserve.ReserveRequestDTO;
-import com.vinisnzy.cinema.models.reserve.ReserveResponseDTO;
+import com.vinisnzy.cinema.models.Reserve;
+import com.vinisnzy.cinema.dtos.reserve.ReserveRequestDTO;
+import com.vinisnzy.cinema.dtos.reserve.ReserveResponseDTO;
 import com.vinisnzy.cinema.repositories.ReserveRepository;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;

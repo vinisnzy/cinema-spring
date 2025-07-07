@@ -1,6 +1,6 @@
 package com.vinisnzy.cinema.repositories;
 
-import com.vinisnzy.cinema.models.reserve.Reserve;
+import com.vinisnzy.cinema.models.Reserve;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

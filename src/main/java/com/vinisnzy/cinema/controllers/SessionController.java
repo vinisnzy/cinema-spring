@@ -1,7 +1,7 @@
 package com.vinisnzy.cinema.controllers;
 
-import com.vinisnzy.cinema.models.session.SessionRequestDTO;
-import com.vinisnzy.cinema.models.session.SessionResponseDTO;
+import com.vinisnzy.cinema.dtos.session.SessionRequestDTO;
+import com.vinisnzy.cinema.dtos.session.SessionResponseDTO;
 import com.vinisnzy.cinema.services.SessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

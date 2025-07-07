@@ -1,7 +1,7 @@
-package com.vinisnzy.cinema.models.session;
+package com.vinisnzy.cinema.dtos.session;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.vinisnzy.cinema.models.movie.MovieResponseDTO;
+import com.vinisnzy.cinema.dtos.movie.MovieResponseDTO;
 
 import java.util.UUID;
 

@@ -1,7 +1,5 @@
-package com.vinisnzy.cinema.models.reserve;
+package com.vinisnzy.cinema.models;
 
-import com.vinisnzy.cinema.models.seat.Seat;
-import com.vinisnzy.cinema.models.session.Session;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +8,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity

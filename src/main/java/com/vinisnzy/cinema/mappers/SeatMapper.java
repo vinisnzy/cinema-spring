@@ -1,11 +1,10 @@
 package com.vinisnzy.cinema.mappers;
 
-import com.vinisnzy.cinema.models.seat.Seat;
-import com.vinisnzy.cinema.models.seat.SeatRequestDTO;
-import com.vinisnzy.cinema.models.seat.SeatResponseDTO;
-import com.vinisnzy.cinema.models.session.Session;
+import com.vinisnzy.cinema.models.Seat;
+import com.vinisnzy.cinema.dtos.seat.SeatRequestDTO;
+import com.vinisnzy.cinema.dtos.seat.SeatResponseDTO;
+import com.vinisnzy.cinema.models.Session;
 import com.vinisnzy.cinema.services.SessionService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component

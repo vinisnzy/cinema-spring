@@ -1,6 +1,6 @@
 package com.vinisnzy.cinema.repositories;
 
-import com.vinisnzy.cinema.models.seat.Seat;
+import com.vinisnzy.cinema.models.Seat;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,9 +1,9 @@
 package com.vinisnzy.cinema.mappers;
 
-import com.vinisnzy.cinema.models.reserve.Reserve;
-import com.vinisnzy.cinema.models.reserve.ReserveRequestDTO;
-import com.vinisnzy.cinema.models.reserve.ReserveResponseDTO;
-import com.vinisnzy.cinema.models.seat.Seat;
+import com.vinisnzy.cinema.models.Reserve;
+import com.vinisnzy.cinema.dtos.reserve.ReserveRequestDTO;
+import com.vinisnzy.cinema.dtos.reserve.ReserveResponseDTO;
+import com.vinisnzy.cinema.models.Seat;
 import com.vinisnzy.cinema.services.SeatService;
 import com.vinisnzy.cinema.services.SessionService;
 import lombok.RequiredArgsConstructor;
