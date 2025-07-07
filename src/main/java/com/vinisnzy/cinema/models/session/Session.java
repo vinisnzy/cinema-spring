@@ -1,12 +1,17 @@
-package com.vinisnzy.cinema.model;
+package com.vinisnzy.cinema.models.session;
 
+import com.vinisnzy.cinema.models.movie.Movie;
+import com.vinisnzy.cinema.models.reserve.Reserve;
+import com.vinisnzy.cinema.models.seat.Seat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -37,5 +42,5 @@ public class Session {
     private List<Seat> seats;
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reserve> reserves;
+    private Set<Reserve> reserves;
 }
