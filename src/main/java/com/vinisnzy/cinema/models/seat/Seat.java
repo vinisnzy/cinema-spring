@@ -1,9 +1,9 @@
-package com.vinisnzy.cinema.model;
+package com.vinisnzy.cinema.models.seat;
 
+import com.vinisnzy.cinema.models.session.Session;
+import com.vinisnzy.cinema.models.reserve.Reserve;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -18,7 +18,7 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String code;
 
     @Column(nullable = false)
