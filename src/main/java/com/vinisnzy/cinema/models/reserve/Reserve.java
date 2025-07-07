@@ -1,12 +1,16 @@
-package com.vinisnzy.cinema.model;
+package com.vinisnzy.cinema.models.reserve;
 
+import com.vinisnzy.cinema.models.seat.Seat;
+import com.vinisnzy.cinema.models.session.Session;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -27,7 +31,7 @@ public class Reserve {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "reserve")
-    private List<Seat> seats;
+    private List<Seat> seats = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "session_id", nullable = false)
