@@ -1,9 +1,12 @@
 package com.vinisnzy.cinema.controllers;
 
+import com.vinisnzy.cinema.dtos.CustomPageDTO;
 import com.vinisnzy.cinema.dtos.reserve.ReserveRequestDTO;
 import com.vinisnzy.cinema.dtos.reserve.ReserveResponseDTO;
 import com.vinisnzy.cinema.services.ReserveService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +20,8 @@ public class ReserveController {
     private final ReserveService service;
 
     @GetMapping
-    public ResponseEntity<List<ReserveResponseDTO>> getAllReserves() {
-        return ResponseEntity.ok(service.getAllReserves());
+    public ResponseEntity<CustomPageDTO<ReserveResponseDTO>> getAllReserves(Pageable pageable) {
+        return ResponseEntity.ok(service.getAllReserves(pageable));
     }
 
     @GetMapping("/{id}")

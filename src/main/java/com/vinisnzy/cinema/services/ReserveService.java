@@ -1,10 +1,13 @@
 package com.vinisnzy.cinema.services;
 
+import com.vinisnzy.cinema.dtos.CustomPageDTO;
 import com.vinisnzy.cinema.mappers.ReserveMapper;
 import com.vinisnzy.cinema.models.Reserve;
 import com.vinisnzy.cinema.dtos.reserve.ReserveRequestDTO;
 import com.vinisnzy.cinema.dtos.reserve.ReserveResponseDTO;
 import com.vinisnzy.cinema.repositories.ReserveRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,14 +19,17 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ReserveService {
 
-    private final ReserveRepository reserveRepository;
+    private final ReserveRepository repository;
     private final ReserveMapper reserveMapper;
     private final SessionService sessionService;
     private final SeatService seatService;
 
-    public List<ReserveResponseDTO> getAllReserves() {
-        return reserveRepository.findAllWithSeats().stream()
-                .map(reserve -> reserveMapper.toResponseDTO(reserve, sessionService)).toList();
+    public CustomPageDTO<ReserveResponseDTO> getAllReserves(Pageable pageable) {
+        Page<Reserve> page = repository.findAllWithSeats(pageable);
+        List<ReserveResponseDTO> content = page.getContent().stream()
+                .map(reserve -> reserveMapper.toResponseDTO(reserve, sessionService))
+                .toList();
+        return new CustomPageDTO<>(content, page.getNumber(), page.getTotalPages(), page.getTotalElements());
     }
 
     public ReserveResponseDTO getReserveById(UUID id) {
@@ -33,25 +39,25 @@ public class ReserveService {
 
     public ReserveResponseDTO createReserve(ReserveRequestDTO data) {
         Reserve reserve = reserveMapper.toEntity(data, sessionService, seatService);
-        return reserveMapper.toResponseDTO(reserveRepository.save(reserve), sessionService);
+        return reserveMapper.toResponseDTO(repository.save(reserve), sessionService);
     }
 
     public ReserveResponseDTO updateReserve(UUID id, ReserveRequestDTO data) {
         Reserve reserve = getEntityById(id);
         reserve.setClientName(data.clientName());
-        return reserveMapper.toResponseDTO(reserveRepository.save(reserve), sessionService);
+        return reserveMapper.toResponseDTO(repository.save(reserve), sessionService);
     }
 
     @Transactional
     public void deleteReserve(UUID id) {
-        Reserve reserve = reserveRepository.findByIdWithSeats(id)
+        Reserve reserve = repository.findByIdWithSeats(id)
                 .orElseThrow(() -> new IllegalArgumentException("Reserve not found"));
         seatService.releaseSeatsFromReserve(reserve);
-        reserveRepository.delete(reserve);
+        repository.delete(reserve);
     }
 
     public Reserve getEntityById(UUID id) {
-        return reserveRepository.findByIdWithSeats(id)
+        return repository.findByIdWithSeats(id)
                 .orElseThrow(() -> new IllegalArgumentException("Reserve not found"));
     }
 }

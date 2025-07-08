@@ -26,9 +26,9 @@ public class MovieService {
 
     public CustomPageDTO<MovieResponseDTO> getAllMovies(Pageable pageable) {
         Page<Movie> page = repository.findAll(pageable);
-        List<MovieResponseDTO> dtos = page.getContent().stream()
+        List<MovieResponseDTO> content = page.getContent().stream()
                 .map(movieMapper::toResponseDTO).toList();
-        return new CustomPageDTO<>(dtos, page.getNumber(), page.getTotalPages(), page.getTotalElements());
+        return new CustomPageDTO<>(content, page.getNumber(), page.getTotalPages(), page.getTotalElements());
     }
 
     public MovieResponseDTO getMovieById(UUID id) {

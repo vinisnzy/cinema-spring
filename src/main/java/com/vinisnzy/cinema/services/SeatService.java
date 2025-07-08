@@ -1,5 +1,6 @@
 package com.vinisnzy.cinema.services;
 
+import com.vinisnzy.cinema.dtos.CustomPageDTO;
 import com.vinisnzy.cinema.mappers.SeatMapper;
 import com.vinisnzy.cinema.models.Seat;
 import com.vinisnzy.cinema.dtos.seat.SeatRequestDTO;
@@ -9,6 +10,9 @@ import com.vinisnzy.cinema.models.Session;
 import com.vinisnzy.cinema.repositories.SeatRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +26,12 @@ public class SeatService {
     private final SessionService sessionService;
     private final SeatMapper seatMapper;
 
-    public List<SeatResponseDTO> getAllSeatsBySessionId(UUID sessionId) {
-        return repository.findAllBySessionId(sessionId).stream()
+    public CustomPageDTO<SeatResponseDTO> getAllSeatsBySessionId(UUID sessionId, Pageable pageable) {
+        Page<Seat> page = repository.findAllBySessionId(sessionId, pageable);
+        List<SeatResponseDTO> content = page.getContent().stream()
                 .map(seat -> seatMapper.toResponseDTO(seat, sessionService)).toList();
+        return new CustomPageDTO<>(content, page.getNumber(), page.getTotalPages(), page.getTotalElements());
+
     }
 
     public SeatResponseDTO getSeatById(UUID id) {
@@ -32,21 +39,25 @@ public class SeatService {
         return seatMapper.toResponseDTO(seat, sessionService);
     }
 
-    public List<SeatResponseDTO> getSeatsByReserveId(UUID reserveId) {
-        return repository.findAllByReserveId(reserveId).stream()
+    public CustomPageDTO<SeatResponseDTO> getSeatsByReserveId(UUID reserveId, Pageable pageable) {
+        Page<Seat> page = repository.findAllByReserveId(reserveId, pageable);
+        List<SeatResponseDTO> content = page.getContent().stream()
                 .map(seat -> seatMapper.toResponseDTO(seat, sessionService)).toList();
+        return new CustomPageDTO<>(content, page.getNumber(), page.getTotalPages(), page.getTotalElements());
     }
 
-    public List<SeatResponseDTO> getReservedSeatsBySessionId(UUID sessionId) {
-        List<Seat> reservedSeats = repository.findAllBySessionIdAndReserved(sessionId, true);
-        return reservedSeats.stream()
+    public CustomPageDTO<SeatResponseDTO> getReservedSeatsBySessionId(UUID sessionId, Pageable pageable) {
+        Page<Seat> page = repository.findAllBySessionIdAndReserved(sessionId, true, pageable);
+        List<SeatResponseDTO> content = page.getContent().stream()
                 .map(seat -> seatMapper.toResponseDTO(seat, sessionService)).toList();
+        return new CustomPageDTO<>(content, page.getNumber(), page.getTotalPages(), page.getTotalElements());
     }
 
-    public List<SeatResponseDTO> getAvailableSeatsBySessionId(UUID sessionId) {
-        List<Seat> freeSeats = repository.findAllBySessionIdAndReserved(sessionId, false);
-        return freeSeats.stream()
+    public CustomPageDTO<SeatResponseDTO> getAvailableSeatsBySessionId(UUID sessionId, Pageable pageable) {
+        Page<Seat> page = repository.findAllBySessionIdAndReserved(sessionId, false, pageable);
+        List<SeatResponseDTO> content = page.getContent().stream()
                 .map(seat -> seatMapper.toResponseDTO(seat, sessionService)).toList();
+        return new CustomPageDTO<>(content, page.getNumber(), page.getTotalPages(), page.getTotalElements());
     }
 
     public SeatResponseDTO createSeat(SeatRequestDTO data) {
@@ -82,12 +93,18 @@ public class SeatService {
 
     @Transactional
     public void releaseSeatsFromReserve(Reserve reserve) {
+        if (reserve == null) {
+            throw new IllegalArgumentException("Reserve can't null");
+        }
+        
         List<Seat> seats = repository.findAllByReserveId(reserve.getId());
-
-        for (Seat seat : seats) {
-            seat.setReserved(false);
-            seat.setReserve(null);
-            repository.saveAndFlush(seat);
+        
+        if (seats != null && !seats.isEmpty()) {
+            seats.forEach(seat -> {
+                seat.setReserved(false);
+                seat.setReserve(null);
+            });
+            repository.saveAll(seats);
         }
     }
 }

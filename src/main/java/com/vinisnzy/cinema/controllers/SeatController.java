@@ -1,9 +1,12 @@
 package com.vinisnzy.cinema.controllers;
 
+import com.vinisnzy.cinema.dtos.CustomPageDTO;
 import com.vinisnzy.cinema.dtos.seat.SeatRequestDTO;
 import com.vinisnzy.cinema.dtos.seat.SeatResponseDTO;
 import com.vinisnzy.cinema.services.SeatService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +21,11 @@ public class SeatController {
     private final SeatService service;
 
     @GetMapping("/session/{id}")
-    public ResponseEntity<List<SeatResponseDTO>> getAllSeatsBySessionId(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getAllSeatsBySessionId(id));
+    public ResponseEntity<CustomPageDTO<SeatResponseDTO>> getAllSeatsBySessionId(
+            @PathVariable UUID id,
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(service.getAllSeatsBySessionId(id, pageable));
     }
 
     @GetMapping("/{id}")
@@ -28,18 +34,27 @@ public class SeatController {
     }
 
     @GetMapping("reserve/{id}")
-    public ResponseEntity<List<SeatResponseDTO>> getSeatsByReserveId(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getSeatsByReserveId(id));
+    public ResponseEntity<CustomPageDTO<SeatResponseDTO>> getSeatsByReserveId(
+            @PathVariable UUID id,
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(service.getSeatsByReserveId(id, pageable));
     }
 
     @GetMapping("/session/{id}/reserved")
-    public ResponseEntity<List<SeatResponseDTO>> getReservedSeatsBySessionId(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getReservedSeatsBySessionId(id));
+    public ResponseEntity<CustomPageDTO<SeatResponseDTO>> getReservedSeatsBySessionId(
+            @PathVariable UUID id,
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(service.getReservedSeatsBySessionId(id, pageable));
     }
 
     @GetMapping("/session/{id}/available")
-    public ResponseEntity<List<SeatResponseDTO>> getAvailableSeatsBySessionId(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getAvailableSeatsBySessionId(id));
+    public ResponseEntity<CustomPageDTO<SeatResponseDTO>> getAvailableSeatsBySessionId(
+            @PathVariable UUID id,
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(service.getAvailableSeatsBySessionId(id, pageable));
     }
 
     @PostMapping

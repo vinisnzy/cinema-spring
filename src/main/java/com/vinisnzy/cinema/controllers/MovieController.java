@@ -20,11 +20,7 @@ public class MovieController {
     private final MovieService service;
 
     @GetMapping
-    public ResponseEntity<CustomPageDTO<MovieResponseDTO>> getAllMovies(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
-    ) {
-        Pageable pageable = PageRequest.of(page, size);
+    public ResponseEntity<CustomPageDTO<MovieResponseDTO>> getAllMovies(Pageable pageable) {
         return ResponseEntity.ok(service.getAllMovies(pageable));
     }
 
