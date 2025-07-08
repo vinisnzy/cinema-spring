@@ -1,6 +1,8 @@
 package com.vinisnzy.cinema.repositories;
 
 import com.vinisnzy.cinema.models.Reserve;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,5 +16,5 @@ public interface ReserveRepository extends JpaRepository<Reserve, UUID> {
     Optional<Reserve> findByIdWithSeats(@Param("id") UUID id);
     
     @Query("SELECT DISTINCT r FROM Reserve r LEFT JOIN FETCH r.seats")
-    List<Reserve> findAllWithSeats();
+    Page<Reserve> findAllWithSeats(Pageable pageable);
 }
