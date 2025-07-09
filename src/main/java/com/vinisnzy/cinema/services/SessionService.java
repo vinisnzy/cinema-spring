@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -57,6 +58,9 @@ public class SessionService {
 
     public SessionResponseDTO createSession(SessionRequestDTO data) {
         Session session = sessionMapper.toEntity(data, movieService);
+        if (hasTimeConflict(session)) {
+            throw new IllegalArgumentException("There is already a session in that time range");
+        }
         Movie movie = movieService.getEntityById(data.movieId());
         session = repository.save(session);
         movie.getSessions().add(session);
@@ -88,5 +92,31 @@ public class SessionService {
 
     public SessionResponseDTO toResponseDTO(Session session) {
         return sessionMapper.toResponseDTO(session, movieService);
+    }
+
+    private boolean hasTimeConflict(Session session) {
+        for (Session otherSession : repository.findAll()) {
+            if (session.getRoom().equals(otherSession.getRoom())) {
+                if (session.getId() != null && session.getId().equals(otherSession.getId())) {
+                    continue;
+                }
+                boolean hasTimeConflict = isTimeConflict(session, otherSession);
+
+                if (!hasTimeConflict) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean isTimeConflict(Session session, Session otherSession) {
+        LocalDateTime startMovie = session.getDateTime();
+        LocalDateTime endMovie = session.getDateTime().plusMinutes(session.getMovie().getDurationMinutes());
+
+        LocalDateTime startOtherMovie = otherSession.getDateTime();
+        LocalDateTime endOtherMovie = startOtherMovie.plusMinutes(otherSession.getMovie().getDurationMinutes());
+
+        return endMovie.plusHours(1).isBefore(startOtherMovie) || startMovie.minusHours(1).isAfter(endOtherMovie);
     }
 }
