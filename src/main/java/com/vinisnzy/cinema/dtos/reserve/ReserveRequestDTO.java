@@ -2,6 +2,7 @@ package com.vinisnzy.cinema.dtos.reserve;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +15,7 @@ public record ReserveRequestDTO(
         @NotEmpty(message = "Seats are required")
         List<String> seats,
 
-        @NotBlank(message = "Session is required")
+        @NotNull(message = "Session is required")
         UUID sessionId
 ) {
 }

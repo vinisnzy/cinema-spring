@@ -4,6 +4,7 @@ import com.vinisnzy.cinema.dtos.CustomPageDTO;
 import com.vinisnzy.cinema.dtos.movie.MovieRequestDTO;
 import com.vinisnzy.cinema.dtos.movie.MovieResponseDTO;
 import com.vinisnzy.cinema.services.MovieService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,12 +31,12 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<MovieResponseDTO> createMovie(@RequestBody MovieRequestDTO data) {
+    public ResponseEntity<MovieResponseDTO> createMovie(@RequestBody @Valid MovieRequestDTO data) {
         return ResponseEntity.ok(service.createMovie(data));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieResponseDTO> updateMovie(@PathVariable UUID id, @RequestBody MovieRequestDTO data) {
+    public ResponseEntity<MovieResponseDTO> updateMovie(@PathVariable UUID id, @Valid @RequestBody MovieRequestDTO data) {
         return ResponseEntity.ok(service.updateMovie(id, data));
     }
 

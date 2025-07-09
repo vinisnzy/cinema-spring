@@ -1,6 +1,7 @@
 package com.vinisnzy.cinema.services;
 
 import com.vinisnzy.cinema.dtos.CustomPageDTO;
+import com.vinisnzy.cinema.exceptions.ResourceNotFoundException;
 import com.vinisnzy.cinema.mappers.ReserveMapper;
 import com.vinisnzy.cinema.models.Reserve;
 import com.vinisnzy.cinema.dtos.reserve.ReserveRequestDTO;
@@ -51,13 +52,13 @@ public class ReserveService {
     @Transactional
     public void deleteReserve(UUID id) {
         Reserve reserve = repository.findByIdWithSeats(id)
-                .orElseThrow(() -> new IllegalArgumentException("Reserve not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Reserve not found, id: " + id));
         seatService.releaseSeatsFromReserve(reserve);
         repository.delete(reserve);
     }
 
     public Reserve getEntityById(UUID id) {
         return repository.findByIdWithSeats(id)
-                .orElseThrow(() -> new IllegalArgumentException("Reserve not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Reserve not found, id: " + id));
     }
 }

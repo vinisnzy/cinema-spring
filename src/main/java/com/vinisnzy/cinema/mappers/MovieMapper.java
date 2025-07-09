@@ -1,5 +1,6 @@
 package com.vinisnzy.cinema.mappers;
 
+import com.vinisnzy.cinema.enums.Classification;
 import com.vinisnzy.cinema.models.Movie;
 import com.vinisnzy.cinema.dtos.movie.MovieRequestDTO;
 import com.vinisnzy.cinema.dtos.movie.MovieResponseDTO;

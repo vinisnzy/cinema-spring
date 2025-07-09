@@ -4,6 +4,7 @@ import com.vinisnzy.cinema.dtos.CustomPageDTO;
 import com.vinisnzy.cinema.dtos.reserve.ReserveRequestDTO;
 import com.vinisnzy.cinema.dtos.reserve.ReserveResponseDTO;
 import com.vinisnzy.cinema.services.ReserveService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,12 +31,12 @@ public class ReserveController {
     }
 
     @PostMapping
-    public ResponseEntity<ReserveResponseDTO> createReserve(@RequestBody ReserveRequestDTO data) {
+    public ResponseEntity<ReserveResponseDTO> createReserve(@RequestBody @Valid ReserveRequestDTO data) {
         return ResponseEntity.ok(service.createReserve(data));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReserveResponseDTO> updateReserve(@PathVariable UUID id, @RequestBody ReserveRequestDTO data) {
+    public ResponseEntity<ReserveResponseDTO> updateReserve(@PathVariable UUID id, @Valid @RequestBody ReserveRequestDTO data) {
         return ResponseEntity.ok(service.updateReserve(id, data));
     }
 

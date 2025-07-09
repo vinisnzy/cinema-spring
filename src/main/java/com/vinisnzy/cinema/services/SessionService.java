@@ -1,6 +1,7 @@
 package com.vinisnzy.cinema.services;
 
 import com.vinisnzy.cinema.dtos.CustomPageDTO;
+import com.vinisnzy.cinema.exceptions.ResourceNotFoundException;
 import com.vinisnzy.cinema.mappers.SessionMapper;
 import com.vinisnzy.cinema.models.Movie;
 import com.vinisnzy.cinema.models.Seat;
@@ -30,9 +31,9 @@ public class SessionService {
 
     public CustomPageDTO<SessionResponseDTO> getAllSessions(Pageable pageable) {
         Page<Session> page = repository.findAll(pageable);
-        List<SessionResponseDTO> dtos = page.getContent().stream()
+        List<SessionResponseDTO> content = page.getContent().stream()
                 .map(session -> sessionMapper.toResponseDTO(session, movieService)).toList();
-        return new CustomPageDTO<>(dtos, page.getNumber(), page.getTotalPages(), page.getTotalElements());
+        return new CustomPageDTO<>(content, page.getNumber(), page.getTotalPages(), page.getTotalElements());
     }
 
     public SessionResponseDTO getSessionById(UUID id) {
@@ -82,7 +83,7 @@ public class SessionService {
 
     public Session getEntityById(UUID id) {
         return repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Session not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Session not found, id: " + id));
     }
 
     public SessionResponseDTO toResponseDTO(Session session) {

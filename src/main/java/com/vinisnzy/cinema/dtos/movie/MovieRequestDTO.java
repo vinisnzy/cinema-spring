@@ -2,19 +2,20 @@ package com.vinisnzy.cinema.dtos.movie;
 
 import com.vinisnzy.cinema.enums.Classification;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record MovieRequestDTO(
 
         @NotBlank(message = "Title is required")
         String title,
 
-        @NotBlank(message = "Duration is required")
+        @NotNull(message = "Duration is required")
         Integer durationMinutes,
 
         @NotBlank(message = "Gender is required")
         String gender,
 
-        @NotBlank(message = "Classification is required")
+        @NotNull(message = "Classification is required")
         Classification classification
 ) {
 }

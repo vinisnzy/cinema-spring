@@ -4,6 +4,7 @@ import com.vinisnzy.cinema.dtos.CustomPageDTO;
 import com.vinisnzy.cinema.dtos.session.SessionRequestDTO;
 import com.vinisnzy.cinema.dtos.session.SessionResponseDTO;
 import com.vinisnzy.cinema.services.SessionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -46,12 +47,12 @@ public class SessionController {
     }
 
     @PostMapping
-    public ResponseEntity<SessionResponseDTO> createSession(@RequestBody SessionRequestDTO data) {
+    public ResponseEntity<SessionResponseDTO> createSession(@RequestBody @Valid SessionRequestDTO data) {
         return ResponseEntity.ok(service.createSession(data));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SessionResponseDTO> updateSession(@PathVariable UUID id, @RequestBody SessionRequestDTO data) {
+    public ResponseEntity<SessionResponseDTO> updateSession(@PathVariable UUID id, @Valid @RequestBody SessionRequestDTO data) {
         return ResponseEntity.ok(service.updateSession(id, data));
     }
 

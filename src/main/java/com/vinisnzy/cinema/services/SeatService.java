@@ -1,6 +1,7 @@
 package com.vinisnzy.cinema.services;
 
 import com.vinisnzy.cinema.dtos.CustomPageDTO;
+import com.vinisnzy.cinema.exceptions.ResourceNotFoundException;
 import com.vinisnzy.cinema.mappers.SeatMapper;
 import com.vinisnzy.cinema.models.Seat;
 import com.vinisnzy.cinema.dtos.seat.SeatRequestDTO;
@@ -77,7 +78,7 @@ public class SeatService {
 
     public Seat getEntityById(UUID id) {
         return repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Seat not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Seat not found, id: " + id));
     }
     public List<Seat> getSeatsByCodesAndSessionId(List<String> codes, UUID sessionId) {
         return repository.findByCodeInAndSessionId(codes, sessionId);

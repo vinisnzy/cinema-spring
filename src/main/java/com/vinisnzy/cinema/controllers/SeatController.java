@@ -4,6 +4,7 @@ import com.vinisnzy.cinema.dtos.CustomPageDTO;
 import com.vinisnzy.cinema.dtos.seat.SeatRequestDTO;
 import com.vinisnzy.cinema.dtos.seat.SeatResponseDTO;
 import com.vinisnzy.cinema.services.SeatService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -58,12 +59,12 @@ public class SeatController {
     }
 
     @PostMapping
-    public ResponseEntity<SeatResponseDTO> createSeat(@RequestBody SeatRequestDTO data) {
+    public ResponseEntity<SeatResponseDTO> createSeat(@RequestBody @Valid SeatRequestDTO data) {
         return ResponseEntity.ok(service.createSeat(data));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SeatResponseDTO> updateSeat(@PathVariable UUID id, @RequestBody SeatRequestDTO data) {
+    public ResponseEntity<SeatResponseDTO> updateSeat(@PathVariable UUID id, @Valid @RequestBody SeatRequestDTO data) {
         return ResponseEntity.ok(service.updateSeat(id, data));
     }
 
