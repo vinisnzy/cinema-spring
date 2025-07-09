@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  postgres:
+  db:
     image: postgres:16
-    container_name: meu-postgres
+    container_name: cinema-db
     ports:
       - "5433:5432"
     environment:
@@ -12,6 +12,5 @@ services:
       POSTGRES_PASSWORD: root
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
 volumes:
   postgres_data:
