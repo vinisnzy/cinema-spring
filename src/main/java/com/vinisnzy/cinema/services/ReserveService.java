@@ -38,6 +38,7 @@ public class ReserveService {
         return reserveMapper.toResponseDTO(reserve, sessionService);
     }
 
+    @Transactional
     public ReserveResponseDTO createReserve(ReserveRequestDTO data) {
         Reserve reserve = reserveMapper.toEntity(data, sessionService, seatService);
         return reserveMapper.toResponseDTO(repository.save(reserve), sessionService);

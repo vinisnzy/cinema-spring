@@ -76,20 +76,12 @@ public class SeatService {
         return seatMapper.toResponseDTO(repository.save(seat), sessionService);
     }
 
-    public Seat getEntityById(UUID id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Seat not found, id: " + id));
-    }
-    public List<Seat> getSeatsByCodesAndSessionId(List<String> codes, UUID sessionId) {
-        return repository.findByCodeInAndSessionId(codes, sessionId);
-    }
-
     public void deleteSeat(UUID id) {
         repository.deleteById(id);
     }
 
-    public void saveSeat(Seat seat) {
-        repository.save(seat);
+    public List<Seat> getSeatsByCodesAndSessionId(List<String> codes, UUID sessionId) {
+        return repository.findByCodeInAndSessionId(codes, sessionId);
     }
 
     @Transactional
@@ -107,5 +99,10 @@ public class SeatService {
             });
             repository.saveAll(seats);
         }
+    }
+
+    private Seat getEntityById(UUID id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Seat not found, id: " + id));
     }
 }
