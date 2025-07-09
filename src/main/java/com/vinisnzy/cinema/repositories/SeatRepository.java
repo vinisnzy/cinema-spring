@@ -1,9 +1,11 @@
 package com.vinisnzy.cinema.repositories;
 
 import com.vinisnzy.cinema.models.Seat;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -49,5 +51,7 @@ public interface SeatRepository extends JpaRepository<Seat, UUID> {
             @Param("reserved") boolean reserved,
             Pageable pageable);
 
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<Seat> findByCodeInAndSessionId(List<String> codes, UUID sessionId);
 }

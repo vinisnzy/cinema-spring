@@ -1,5 +1,6 @@
 package com.vinisnzy.cinema.mappers;
 
+import com.vinisnzy.cinema.exceptions.SeatAlreadyReservedException;
 import com.vinisnzy.cinema.models.Reserve;
 import com.vinisnzy.cinema.dtos.reserve.ReserveRequestDTO;
 import com.vinisnzy.cinema.dtos.reserve.ReserveResponseDTO;
@@ -30,19 +31,25 @@ public class ReserveMapper {
     }
 
     public Reserve toEntity(ReserveRequestDTO data, SessionService sessionService, SeatService seatService) {
+        UUID sessionId = data.sessionId();
+        List<Seat> seats = seatService.getSeatsByCodesAndSessionId(data.seats(), sessionId);
+        List<String> reservedSeats = seats.stream()
+                .filter(Seat::isReserved)
+                .map(Seat::getCode).toList();
+
+        if (!reservedSeats.isEmpty()) {
+            throw new SeatAlreadyReservedException("The following seats is already reserved: " + reservedSeats);
+        }
         Reserve reserve = new Reserve();
         reserve.setClientName(data.clientName());
         reserve.setCreatedAt(LocalDateTime.now());
-        UUID sessionId = data.sessionId();
         reserve.setSession(sessionService.getEntityById(sessionId));
 
-        List<Seat> seats = seatService.getSeatsByCodesAndSessionId(data.seats(), sessionId);
-
-        for (Seat seat : seats) {
+        seats.forEach(seat -> {
             seat.setReserved(true);
             seat.setReserve(reserve);
             reserve.getSeats().add(seat);
-        }
+        });
         return reserve;
     }
 }
