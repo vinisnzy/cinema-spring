@@ -86,13 +86,9 @@ public class SeatService {
 
     @Transactional
     public void releaseSeatsFromReserve(Reserve reserve) {
-        if (reserve == null) {
-            throw new IllegalArgumentException("Reserve can't null");
-        }
-        
         List<Seat> seats = repository.findAllByReserveId(reserve.getId());
         
-        if (seats != null && !seats.isEmpty()) {
+        if (!seats.isEmpty()) {
             seats.forEach(seat -> {
                 seat.setReserved(false);
                 seat.setReserve(null);

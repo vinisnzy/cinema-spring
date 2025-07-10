@@ -23,7 +23,6 @@ public class MovieService {
 
     private final MovieRepository repository;
 
-    @Autowired
     private final MovieMapper movieMapper;
 
     public CustomPageDTO<MovieResponseDTO> getAllMovies(Pageable pageable) {

@@ -52,14 +52,13 @@ public class ReserveService {
 
     @Transactional
     public void deleteReserve(UUID id) {
-        Reserve reserve = repository.findByIdWithSeats(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Reserve not found, id: " + id));
+        Reserve reserve = getEntityById(id);
         seatService.releaseSeatsFromReserve(reserve);
         repository.delete(reserve);
     }
 
     public Reserve getEntityById(UUID id) {
         return repository.findByIdWithSeats(id)
-                .orElseThrow(() -> new IllegalArgumentException("Reserve not found, id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Reserve not found, id: " + id));
     }
 }
