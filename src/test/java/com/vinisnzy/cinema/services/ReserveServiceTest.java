@@ -50,10 +50,12 @@ class ReserveServiceTest {
     private ReserveResponseDTO responseDTO;
     private ReserveRequestDTO requestDTO;
 
+    private final UUID id = UUID.randomUUID();
+
     @BeforeEach
     void setUp() {
         reserve = new Reserve();
-        reserve.setId(UUID.randomUUID());
+        reserve.setId(id);
         reserve.setClientName("Vinícius");
         reserve.setCreatedAt(LocalDateTime.now());
 
@@ -93,7 +95,6 @@ class ReserveServiceTest {
 
         @Test
         void shouldReturnReserveById_WhenIdIsValid() {
-            UUID id = UUID.randomUUID();
             when(repository.findByIdWithSeats(id)).thenReturn(Optional.of(reserve));
             when(mapper.toResponseDTO(reserve, sessionService)).thenReturn(responseDTO);
 
@@ -105,7 +106,6 @@ class ReserveServiceTest {
 
         @Test
         void shouldReturnReserveEntity_WhenIdIsValid() {
-            UUID id = UUID.randomUUID();
             when(repository.findByIdWithSeats(id)).thenReturn(Optional.of(reserve));
 
             Reserve result = reserveService.getEntityById(id);
@@ -115,7 +115,6 @@ class ReserveServiceTest {
         }
 
         @Test void shouldThrowResourceNotFoundException_WhenNotFound() {
-            UUID id = UUID.randomUUID();
             when(repository.findByIdWithSeats(id)).thenReturn(Optional.empty());
 
             ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
@@ -142,7 +141,6 @@ class ReserveServiceTest {
 
     @Test
     void shouldUpdateAndReturnReserve_WhenIdIsValidAndValidData() {
-        UUID id = UUID.randomUUID();
         when(repository.findByIdWithSeats(id)).thenReturn(Optional.of(reserve));
         when(repository.save(reserve)).thenReturn(reserve);
         when(mapper.toResponseDTO(reserve, sessionService)).thenReturn(responseDTO);
@@ -157,7 +155,6 @@ class ReserveServiceTest {
 
     @Test
     void shouldDeleteReserve_WhenIdIsValid() {
-        UUID id = UUID.randomUUID();
         when(repository.findByIdWithSeats(id)).thenReturn(Optional.of(reserve));
 
         reserveService.deleteReserve(id);

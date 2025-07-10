@@ -44,6 +44,7 @@ class MovieServiceTest {
     private Movie movie;
     private MovieResponseDTO movieResponseDTO;
     private MovieRequestDTO movieRequestDTO;
+    private final UUID id = UUID.randomUUID();
 
     @BeforeEach
     void setUp() {
@@ -91,7 +92,6 @@ class MovieServiceTest {
 
         @Test
         void shouldReturnMovieById_WhenIdIsValid() {
-            UUID id = UUID.randomUUID();
             when(repository.findById(id)).thenReturn(Optional.of(movie));
             when(mapper.toResponseDTO(movie)).thenReturn(movieResponseDTO);
 
@@ -103,7 +103,6 @@ class MovieServiceTest {
 
         @Test
         void shouldReturnEntityMovieById_WhenIdIsValid() {
-            UUID id = UUID.randomUUID();
             when(repository.findById(id)).thenReturn(Optional.of(movie));
 
             Movie result = service.getEntityById(id);
@@ -114,7 +113,6 @@ class MovieServiceTest {
 
         @Test
         void shouldThrowResourceNotFoundException_WhenMovieNotFound() {
-            UUID id = UUID.randomUUID();
             when(repository.findById(id)).thenReturn(Optional.empty());
 
             ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
@@ -141,7 +139,6 @@ class MovieServiceTest {
 
     @Test
     void shouldUpdateAndReturnMovie_WhenDataIsValid() {
-        UUID id = UUID.randomUUID();
         when(repository.findById(id)).thenReturn(Optional.of(movie));
         when(repository.save(movie)).thenReturn(movie);
         when(mapper.toResponseDTO(movie)).thenReturn(movieResponseDTO);
@@ -156,7 +153,6 @@ class MovieServiceTest {
 
     @Test
     void shouldDeleteMovie_WhenIdIsValid() {
-        UUID id = UUID.randomUUID();
         service.deleteMovie(id);
         verify(repository).deleteById(id);
     }
