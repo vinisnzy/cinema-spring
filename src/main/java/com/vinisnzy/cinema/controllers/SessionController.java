@@ -15,22 +15,22 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/sessions")
+@RequestMapping("api")
 @RequiredArgsConstructor
 public class SessionController {
     private final SessionService service;
 
-    @GetMapping
+    @GetMapping("/sessions")
     public ResponseEntity<CustomPageDTO<SessionResponseDTO>> getAllSessions(Pageable pageable) {
         return ResponseEntity.ok(service.getAllSessions(pageable));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/sessions/{id}")
     public ResponseEntity<SessionResponseDTO> getSessionById(@PathVariable UUID id) {
         return ResponseEntity.ok(service.getSessionById(id));
     }
 
-    @GetMapping("/movie/{id}")
+    @GetMapping("/sessions/movie/{id}")
     public ResponseEntity<CustomPageDTO<SessionResponseDTO>> getSessionsByMovieId(
             @PathVariable UUID id,
             Pageable pageable
@@ -38,7 +38,7 @@ public class SessionController {
         return ResponseEntity.ok(service.getSessionsByMovieId(id, pageable));
     }
 
-    @GetMapping("/room/{room}")
+    @GetMapping("/sessions/room/{room}")
     public ResponseEntity<CustomPageDTO<SessionResponseDTO>> getSessionsByRoom(
             @PathVariable String room,
             Pageable pageable
@@ -46,17 +46,17 @@ public class SessionController {
         return ResponseEntity.ok(service.getSessionsByRoom(room, pageable));
     }
 
-    @PostMapping
+    @PostMapping("/admin/sessions")
     public ResponseEntity<SessionResponseDTO> createSession(@RequestBody @Valid SessionRequestDTO data) {
         return ResponseEntity.ok(service.createSession(data));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/sessions/{id}")
     public ResponseEntity<SessionResponseDTO> updateSession(@PathVariable UUID id, @Valid @RequestBody SessionRequestDTO data) {
         return ResponseEntity.ok(service.updateSession(id, data));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/sessions/{id}")
     public ResponseEntity<Void> deleteSession(@PathVariable UUID id) {
         service.deleteSession(id);
         return ResponseEntity.noContent().build();

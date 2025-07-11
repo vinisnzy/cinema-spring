@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/seats")
+@RequestMapping("api")
 @RequiredArgsConstructor
 public class SeatController {
 
     private final SeatService service;
 
-    @GetMapping("/session/{id}")
+    @GetMapping("/seats/session/{id}")
     public ResponseEntity<CustomPageDTO<SeatResponseDTO>> getAllSeatsBySessionId(
             @PathVariable UUID id,
             Pageable pageable
@@ -27,12 +27,12 @@ public class SeatController {
         return ResponseEntity.ok(service.getAllSeatsBySessionId(id, pageable));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/seats/{id}")
     public ResponseEntity<SeatResponseDTO> getSeatById(@PathVariable UUID id) {
         return ResponseEntity.ok(service.getSeatById(id));
     }
 
-    @GetMapping("reserve/{id}")
+    @GetMapping("/seats/reserve/{id}")
     public ResponseEntity<CustomPageDTO<SeatResponseDTO>> getSeatsByReserveId(
             @PathVariable UUID id,
             Pageable pageable
@@ -40,7 +40,7 @@ public class SeatController {
         return ResponseEntity.ok(service.getAllSeatsByReserveId(id, pageable));
     }
 
-    @GetMapping("/session/{id}/reserved")
+    @GetMapping("/seats/session/{id}/reserved")
     public ResponseEntity<CustomPageDTO<SeatResponseDTO>> getReservedSeatsBySessionId(
             @PathVariable UUID id,
             Pageable pageable
@@ -48,7 +48,7 @@ public class SeatController {
         return ResponseEntity.ok(service.getAllReservedSeatsBySessionId(id, pageable));
     }
 
-    @GetMapping("/session/{id}/available")
+    @GetMapping("/seats/session/{id}/available")
     public ResponseEntity<CustomPageDTO<SeatResponseDTO>> getAvailableSeatsBySessionId(
             @PathVariable UUID id,
             Pageable pageable
@@ -56,17 +56,17 @@ public class SeatController {
         return ResponseEntity.ok(service.getAllAvailableSeatsBySessionId(id, pageable));
     }
 
-    @PostMapping
+    @PostMapping("/admin/seats")
     public ResponseEntity<SeatResponseDTO> createSeat(@RequestBody @Valid SeatRequestDTO data) {
         return ResponseEntity.ok(service.createSeat(data));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/seats/{id}")
     public ResponseEntity<SeatResponseDTO> updateSeat(@PathVariable UUID id, @Valid @RequestBody SeatRequestDTO data) {
         return ResponseEntity.ok(service.updateSeat(id, data));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/seats/{id}")
     public ResponseEntity<Void> deleteSeat(@PathVariable UUID id) {
         service.deleteSeat(id);
         return ResponseEntity.noContent().build();

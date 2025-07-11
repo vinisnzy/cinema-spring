@@ -6,7 +6,6 @@ import com.vinisnzy.cinema.dtos.movie.MovieResponseDTO;
 import com.vinisnzy.cinema.services.MovieService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/movies")
+@RequestMapping("api/admin/movies")
 @RequiredArgsConstructor
 public class MovieController {
 

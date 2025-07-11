@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/reserves")
+@RequestMapping("/api/admin/reserves")
 @RequiredArgsConstructor
 public class ReserveController {
     private final ReserveService service;
