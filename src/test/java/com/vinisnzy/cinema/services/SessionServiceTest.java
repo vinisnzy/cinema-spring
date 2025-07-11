@@ -1,7 +1,6 @@
 package com.vinisnzy.cinema.services;
 
 import com.vinisnzy.cinema.dtos.CustomPageDTO;
-import com.vinisnzy.cinema.dtos.movie.MovieResponseDTO;
 import com.vinisnzy.cinema.dtos.session.SessionRequestDTO;
 import com.vinisnzy.cinema.dtos.session.SessionResponseDTO;
 import com.vinisnzy.cinema.exceptions.ResourceNotFoundException;
