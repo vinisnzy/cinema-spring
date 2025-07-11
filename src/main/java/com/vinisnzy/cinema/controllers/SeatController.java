@@ -6,12 +6,10 @@ import com.vinisnzy.cinema.dtos.seat.SeatResponseDTO;
 import com.vinisnzy.cinema.services.SeatService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -39,7 +37,7 @@ public class SeatController {
             @PathVariable UUID id,
             Pageable pageable
     ) {
-        return ResponseEntity.ok(service.getSeatsByReserveId(id, pageable));
+        return ResponseEntity.ok(service.getAllSeatsByReserveId(id, pageable));
     }
 
     @GetMapping("/session/{id}/reserved")
@@ -47,7 +45,7 @@ public class SeatController {
             @PathVariable UUID id,
             Pageable pageable
     ) {
-        return ResponseEntity.ok(service.getReservedSeatsBySessionId(id, pageable));
+        return ResponseEntity.ok(service.getAllReservedSeatsBySessionId(id, pageable));
     }
 
     @GetMapping("/session/{id}/available")
@@ -55,7 +53,7 @@ public class SeatController {
             @PathVariable UUID id,
             Pageable pageable
     ) {
-        return ResponseEntity.ok(service.getAvailableSeatsBySessionId(id, pageable));
+        return ResponseEntity.ok(service.getAllAvailableSeatsBySessionId(id, pageable));
     }
 
     @PostMapping

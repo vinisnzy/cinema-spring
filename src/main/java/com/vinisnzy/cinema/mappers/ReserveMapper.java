@@ -32,7 +32,7 @@ public class ReserveMapper {
 
     public Reserve toEntity(ReserveRequestDTO data, SessionService sessionService, SeatService seatService) {
         UUID sessionId = data.sessionId();
-        List<Seat> seats = seatService.getSeatsByCodesAndSessionId(data.seats(), sessionId);
+        List<Seat> seats = seatService.getAllSeatsByCodesAndSessionId(data.seats(), sessionId);
         List<String> reservedSeats = seats.stream()
                 .filter(Seat::isReserved)
                 .map(Seat::getCode).toList();

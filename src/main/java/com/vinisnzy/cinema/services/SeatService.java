@@ -12,7 +12,6 @@ import com.vinisnzy.cinema.repositories.SeatRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -40,21 +39,21 @@ public class SeatService {
         return seatMapper.toResponseDTO(seat, sessionService);
     }
 
-    public CustomPageDTO<SeatResponseDTO> getSeatsByReserveId(UUID reserveId, Pageable pageable) {
+    public CustomPageDTO<SeatResponseDTO> getAllSeatsByReserveId(UUID reserveId, Pageable pageable) {
         Page<Seat> page = repository.findAllByReserveId(reserveId, pageable);
         List<SeatResponseDTO> content = page.getContent().stream()
                 .map(seat -> seatMapper.toResponseDTO(seat, sessionService)).toList();
         return new CustomPageDTO<>(content, page.getNumber(), page.getTotalPages(), page.getTotalElements());
     }
 
-    public CustomPageDTO<SeatResponseDTO> getReservedSeatsBySessionId(UUID sessionId, Pageable pageable) {
+    public CustomPageDTO<SeatResponseDTO> getAllReservedSeatsBySessionId(UUID sessionId, Pageable pageable) {
         Page<Seat> page = repository.findAllBySessionIdAndReserved(sessionId, true, pageable);
         List<SeatResponseDTO> content = page.getContent().stream()
                 .map(seat -> seatMapper.toResponseDTO(seat, sessionService)).toList();
         return new CustomPageDTO<>(content, page.getNumber(), page.getTotalPages(), page.getTotalElements());
     }
 
-    public CustomPageDTO<SeatResponseDTO> getAvailableSeatsBySessionId(UUID sessionId, Pageable pageable) {
+    public CustomPageDTO<SeatResponseDTO> getAllAvailableSeatsBySessionId(UUID sessionId, Pageable pageable) {
         Page<Seat> page = repository.findAllBySessionIdAndReserved(sessionId, false, pageable);
         List<SeatResponseDTO> content = page.getContent().stream()
                 .map(seat -> seatMapper.toResponseDTO(seat, sessionService)).toList();
@@ -80,7 +79,7 @@ public class SeatService {
         repository.deleteById(id);
     }
 
-    public List<Seat> getSeatsByCodesAndSessionId(List<String> codes, UUID sessionId) {
+    public List<Seat> getAllSeatsByCodesAndSessionId(List<String> codes, UUID sessionId) {
         return repository.findByCodeInAndSessionId(codes, sessionId);
     }
 
