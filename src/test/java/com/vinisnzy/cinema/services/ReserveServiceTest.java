@@ -91,6 +91,7 @@ class ReserveServiceTest {
             assertEquals(responseDTO, result.content().getFirst());
             assertEquals(1, result.content().size());
             verify(repository).findAllWithSeats(pageable);
+            verify(mapper).toResponseDTO(reserve, sessionService);
         }
 
         @Test
