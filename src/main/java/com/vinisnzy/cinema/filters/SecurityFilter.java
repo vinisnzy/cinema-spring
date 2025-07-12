@@ -1,5 +1,7 @@
-package com.vinisnzy.cinema.security;
+package com.vinisnzy.cinema.filters;
 
+import com.vinisnzy.cinema.services.UserDetailsServiceImpl;
+import com.vinisnzy.cinema.services.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
