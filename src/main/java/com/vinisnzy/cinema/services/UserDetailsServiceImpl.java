@@ -1,4 +1,4 @@
-package com.vinisnzy.cinema.security;
+package com.vinisnzy.cinema.services;
 
 import com.vinisnzy.cinema.models.User;
 import com.vinisnzy.cinema.repositories.UserRepository;
