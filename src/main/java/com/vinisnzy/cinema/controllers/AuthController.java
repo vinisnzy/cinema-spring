@@ -1,9 +1,13 @@
 package com.vinisnzy.cinema.controllers;
 
+import com.vinisnzy.cinema.config.SecurityConfig;
 import com.vinisnzy.cinema.dtos.login.LoginRequestDTO;
 import com.vinisnzy.cinema.dtos.login.LoginResponseDTO;
 import com.vinisnzy.cinema.dtos.register.RegisterRequestDTO;
 import com.vinisnzy.cinema.services.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +23,19 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Tag(name = "Authorization", description = "Login and Register")
 public class AuthController {
 
     private final AuthService service;
 
+    @Operation(summary = "User Login", description = "Logs in the user and returns their JWT token for authorization.")
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO data) {
         LoginResponseDTO responseDTO = service.login(data);
         return ResponseEntity.ok(responseDTO);
     }
 
+    @Operation(summary = "User Register", description = "Registers the user and saves it in the database.")
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody @Valid RegisterRequestDTO data) {
         try {
@@ -40,6 +47,9 @@ public class AuthController {
         }
     }
 
+    @Operation(summary = "Admin Register",
+            description = "Registers the admin and saves it in the database, you need to be an admin to register admins",
+            security = @SecurityRequirement(name = SecurityConfig.SECURITY))
     @PostMapping("/admin/register-admin")
     public ResponseEntity<Map<String, String>> registerAdmin(@RequestBody @Valid RegisterRequestDTO data) {
         try {

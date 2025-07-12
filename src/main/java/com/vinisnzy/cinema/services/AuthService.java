@@ -6,7 +6,6 @@ import com.vinisnzy.cinema.dtos.register.RegisterRequestDTO;
 import com.vinisnzy.cinema.enums.UserRole;
 import com.vinisnzy.cinema.models.User;
 import com.vinisnzy.cinema.repositories.UserRepository;
-import com.vinisnzy.cinema.security.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
